@@ -1,4 +1,4 @@
-##Hacker-Cache (alias buffer)
+## Hacker-Cache (alias buffer)
 I live in London, and while commuting on the tube I don't have access to the internet which can be annoying.
 Every morning I open up my favourite news source to read about tech and the likes, only to go through a single article before I am swept into internet darkness.
 
@@ -8,4 +8,4 @@ It works reasonably well. This should probably be an app. But this was made in 3
 
 I hope you find this useful.
 
-[Try it here]("https://tank-io-0.appspot.com/")
+[Try it here](https://tank-io-0.appspot.com/)
