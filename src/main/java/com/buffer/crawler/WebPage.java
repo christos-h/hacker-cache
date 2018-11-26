@@ -33,7 +33,7 @@ class WebPage {
     String putInFrame() {
         return "<button class=\"collapsible\">" + name + "</button>\n" +
                 "<div class=\"content\">" +
-                "<iframe src=\"" + urlString + "\" width=\"100%\" height=1000>\n" +
+                "<iframe src=\"" + urlString + "\" width=\"100%\" height=1000 sandbox=\"allow-forms allow-scripts\">\n" +
                 "  <p>Your browser does not support iframes.</p>\n" +
                 "</iframe>" +
                 "</div>";
