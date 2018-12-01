@@ -8,4 +8,4 @@ It works reasonably well. This should probably be an app. But this was made in 3
 
 I hope you find this useful.
 
-[Try it here](https://tank-io-0.appspot.com/)
+[Try it here](https://www.hacker-cache.com/)
