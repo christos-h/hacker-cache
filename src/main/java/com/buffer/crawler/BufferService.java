@@ -18,11 +18,10 @@ public class BufferService {
     public void getPage() {
         try {
             List<WebPage> pages = new PageExtractor().extract(HACKER_NEWS_URL);
-
             String collapsibles = pages.parallelStream()
                     .filter(page -> !page.hasSameOriginPolicy())
                     .map(WebPage::putInFrame)
-                     .collect(Collectors.joining());
+                    .collect(Collectors.joining());
 
             webPageString = new Template().getTemplate().replace("REPLACE_ME", collapsibles);
         } catch (IOException ignored) {
