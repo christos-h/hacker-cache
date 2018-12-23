@@ -6,9 +6,7 @@ import java.io.*;
 
 class Template {
     String getTemplate() {
-        try (BufferedReader br = new BufferedReader(
-                new FileReader(
-                        new ClassPathResource("main.html").getFile()))) {
+        try (BufferedReader br = getBrFromResource("main.html")) {
             String line;
             StringBuilder template = new StringBuilder();
             while ((line = br.readLine()) != null) {
@@ -19,5 +17,9 @@ class Template {
             e.printStackTrace();
             return "";
         }
+    }
+
+    private BufferedReader getBrFromResource(String fileName) throws IOException {
+        return new BufferedReader(new InputStreamReader(new ClassPathResource(fileName).getInputStream()));
     }
 }
