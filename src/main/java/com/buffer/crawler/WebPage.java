@@ -6,6 +6,7 @@ import java.net.URLConnection;
 
 class WebPage {
     private static final String MOZILLA_USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0";
+    private static int i = 0;
 
     private String name;
     private String urlString;
@@ -21,9 +22,12 @@ class WebPage {
 
     boolean hasSameOriginPolicy() {
         try {
+            System.out.println(i++);
             URL url = new URL(urlString);
             URLConnection connection = url.openConnection();
             connection.setRequestProperty("User-Agent", MOZILLA_USER_AGENT);
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
             return connection.getHeaderFields().containsKey("X-Frame-Options");
         } catch (IOException e) {
             return false;
