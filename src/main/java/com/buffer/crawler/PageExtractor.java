@@ -14,8 +14,9 @@ class PageExtractor {
 
     List<WebPage> extract(ExtractableUrl extractableUrl, int nPages) throws IOException {
         List<WebPage> pages = new LinkedList<>();
-        for (int i = 0; i < nPages; i++) {
+        for (int i = 1; i <= nPages; i++) {
             pages.addAll(extract(extractableUrl.page(i)));
+
         }
         return pages;
     }

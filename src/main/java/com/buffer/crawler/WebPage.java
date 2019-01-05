@@ -6,8 +6,6 @@ import java.net.URLConnection;
 
 class WebPage {
     private static final String MOZILLA_USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0";
-    private static int i = 0;
-
     private String name;
     private String urlString;
 
@@ -22,7 +20,6 @@ class WebPage {
 
     boolean hasSameOriginPolicy() {
         try {
-            System.out.println(i++);
             URL url = new URL(urlString);
             URLConnection connection = url.openConnection();
             connection.setRequestProperty("User-Agent", MOZILLA_USER_AGENT);
@@ -38,6 +35,7 @@ class WebPage {
         return "<button class=\"collapsible\">" + name + "</button>\n" +
                 "<div class=\"content\">" +
                 "<iframe src=\"" + urlString + "\" width=\"100%\" height=1000 sandbox=\"allow-forms allow-scripts\">\n" +
+                "style=\"-webkit-transform:scale(0.5);-moz-transform-scale(0.5)\"" +
                 "  <p>Your browser does not support iframes.</p>\n" +
                 "</iframe>" +
                 "</div>";
