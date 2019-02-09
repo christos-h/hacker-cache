@@ -35,7 +35,6 @@ class WebPage {
         return "<button class=\"collapsible\">" + name + "</button>\n" +
                 "<div class=\"content\">" +
                 "<iframe src=\"" + urlString + "\" width=\"100%\" height=1000 sandbox=\"allow-forms allow-scripts\">\n" +
-                "style=\"-webkit-transform:scale(0.5);-moz-transform-scale(0.5)\"" +
                 "  <p>Your browser does not support iframes.</p>\n" +
                 "</iframe>" +
                 "</div>";
