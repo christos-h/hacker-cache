@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Restarting hacker-cache.service."
 
 if [ ! -e /etc/systemd/system/hacker-cache.service ]
@@ -13,4 +15,5 @@ then
 	echo "Could not restart hacker-cache service. Exiting..."
 	exit 1
 fi
-echo "Success."
+
+exit 0;
