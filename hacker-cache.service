@@ -1,0 +1,13 @@
+[Unit]
+Description=Hacker Cache Service
+
+[Service]
+WorkingDirectory=/home/christos/hacker-cache 
+ExecStart=/usr/bin/java -Xmx256m -Dspring.profiles.active=prod -jar hacker-cache-1.0.0.jar
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

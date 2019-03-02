@@ -27,7 +27,7 @@ public class BufferService {
     }
 
     public String getContent(int nPages) {
-        if (pages.isEmpty()) return "No content yet...";
+        if (pages.isEmpty()) return "Loading content. Please refresh in ~1 minute.";
         String pageString = pages.stream()
                 .limit(nPages)
                 .map(WebPage::putInFrame)
