@@ -5,12 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class ExtractablePage {
+public abstract class NewsPage {
     private String baseUrl;
     private boolean isPaginated;
     private String nextPage;
 
-    ExtractablePage(String baseUrl, String nextPage, boolean isPaginated){
+    NewsPage(String baseUrl, String nextPage, boolean isPaginated){
         this.baseUrl = baseUrl;
         this.nextPage = nextPage;
         this.isPaginated = isPaginated;
@@ -38,4 +38,6 @@ public abstract class ExtractablePage {
     }
 
     abstract List<WebPage> extract(String baseUrl) throws IOException;
+
+    abstract Topic topic();
 }

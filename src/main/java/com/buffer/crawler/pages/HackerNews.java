@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HackerNews extends ExtractablePage {
+public class HackerNews extends NewsPage {
     private static final String baseURl = "https://news.ycombinator.com/";
     private static final String nextPage = "news?p=";
 
@@ -30,7 +30,14 @@ public class HackerNews extends ExtractablePage {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    Topic topic() {
+        return Topic.TECH;
+    }
+
     private boolean isHackerNewsItem(String urlString) {
         return urlString.contains("item?");
     }
+
+
 }

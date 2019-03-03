@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Nanowerk extends ExtractablePage {
+public class Nanowerk extends NewsPage {
     private static final String MOZILLA_USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0";
 
     private static final String baseURl = "https://www.nanowerk.com/category-spotlight.php";
@@ -43,8 +43,9 @@ public class Nanowerk extends ExtractablePage {
                 .collect(Collectors.toList());
     }
 
-    public static void main(String[] args) throws IOException {
-        Nanowerk n = new Nanowerk();
-        n.extract(baseURl);
+    @Override
+    Topic topic() {
+        return Topic.NANOTECH;
     }
+
 }
