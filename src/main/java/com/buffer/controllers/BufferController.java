@@ -18,7 +18,7 @@ public class BufferController {
 
     @RequestMapping(value = "/{topic}")
     public String index(@PathVariable String topic){
-        return bufferService.getContent(topic, 50);
+        return bufferService.getContent(topic, 25);
     }
 
     @RequestMapping(value = "{topic}/pages")

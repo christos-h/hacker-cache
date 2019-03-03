@@ -3,25 +3,17 @@ package com.buffer.crawler.pages;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class ExtractablePage {
     private String baseUrl;
     private boolean isPaginated;
     private String nextPage;
 
-    public ExtractablePage(String baseUrl, String nextPage, boolean isPaginated){
+    ExtractablePage(String baseUrl, String nextPage, boolean isPaginated){
         this.baseUrl = baseUrl;
         this.nextPage = nextPage;
         this.isPaginated = isPaginated;
-    }
-
-    boolean isPaginated() {
-        return isPaginated;
-    }
-
-    String page(int n){
-        if(!isPaginated()) throw new IllegalStateException("Cannot get page on non-paginated ExtractableURL");
-        return baseUrl + nextPage + n;
     }
 
     public List<WebPage> extract(int nPages) throws IOException {
@@ -30,7 +22,19 @@ public abstract class ExtractablePage {
             pages.addAll(extract(this.page(i)));
 
         }
-        return pages;
+        return pages.stream()
+                .filter(p -> !p.isEmpty())
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    private String page(int n){
+        if(!isPaginated()) throw new IllegalStateException("Cannot get page on non-paginated ExtractableURL");
+        return baseUrl + nextPage + n;
+    }
+
+    private boolean isPaginated() {
+        return isPaginated;
     }
 
     abstract List<WebPage> extract(String baseUrl) throws IOException;

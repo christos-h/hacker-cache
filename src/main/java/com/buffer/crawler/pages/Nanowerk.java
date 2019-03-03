@@ -30,7 +30,7 @@ public class Nanowerk extends ExtractablePage {
                 .get();
 
         Elements links = doc.select("article");
-        System.out.println(links.size());
+
         return links.stream()
                 .map(e -> {
 

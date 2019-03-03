@@ -1,8 +1,11 @@
 package com.buffer.crawler.pages;
 
+import org.apache.logging.log4j.util.Strings;
+
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Objects;
 
 public class WebPage {
     private static final String MOZILLA_USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0";
@@ -12,6 +15,10 @@ public class WebPage {
     WebPage(String name, String urlString) {
         this.name = name;
         this.urlString = urlString;
+    }
+
+    boolean isEmpty(){
+        return Strings.isEmpty(name) || Strings.isEmpty(urlString);
     }
 
     public boolean hasSameOriginPolicy() {
@@ -40,5 +47,17 @@ public class WebPage {
                 "</div>";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WebPage webPage = (WebPage) o;
+        return Objects.equals(name, webPage.name) &&
+                Objects.equals(urlString, webPage.urlString);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, urlString);
+    }
 }
