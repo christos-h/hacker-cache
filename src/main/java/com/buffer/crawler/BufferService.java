@@ -1,5 +1,8 @@
 package com.buffer.crawler;
 
+import com.buffer.crawler.pages.ExtractablePage;
+import com.buffer.crawler.pages.Nanowerk;
+import com.buffer.crawler.pages.WebPage;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +13,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class BufferService {
-    private static final ExtractableUrl HACKER_NEWS = new ExtractableUrl("https://news.ycombinator.com/", "news?p=");
+    private static final ExtractablePage HACKER_NEWS = new Nanowerk();
 
     private List<WebPage> pages = new LinkedList<>();
 
     @Scheduled(initialDelay = 0, fixedDelay = 1000 * 60 * 10)
     public void getPage() {
         try {
-            pages = new PageExtractor().extract(HACKER_NEWS, 5)
+            pages = HACKER_NEWS.extract(5)
                     .parallelStream()
                     .filter(p -> !p.hasSameOriginPolicy())
                     .collect(Collectors.toList());
@@ -26,7 +29,7 @@ public class BufferService {
         }
     }
 
-    public String getContent(int nPages) {
+    public String getContent(String topic, int nPages) {
         if (pages.isEmpty()) return "Loading content. Please refresh in ~1 minute.";
         String pageString = pages.stream()
                 .limit(nPages)
