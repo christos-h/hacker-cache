@@ -8,4 +8,4 @@ It works reasonably well. This should probably be an app. But this was made in 3
 
 I hope you find this useful.
 
-[Try it here](http://www.hacker-cache.com/)
+[Try it here](http://www.hacker-cache.com/pages?n=20)
