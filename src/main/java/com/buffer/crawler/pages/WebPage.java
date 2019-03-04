@@ -1,5 +1,6 @@
 package com.buffer.crawler.pages;
 
+import com.buffer.crawler.util.ResourceLoader;
 import org.apache.logging.log4j.util.Strings;
 
 import java.io.IOException;
@@ -9,15 +10,15 @@ import java.util.Objects;
 
 public class WebPage {
     private static final String MOZILLA_USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0";
-    private String name;
-    private String urlString;
+    private final String name;
+    private final String urlString;
 
     WebPage(String name, String urlString) {
         this.name = name;
         this.urlString = urlString;
     }
 
-    boolean isEmpty(){
+    boolean isEmpty() {
         return Strings.isEmpty(name) || Strings.isEmpty(urlString);
     }
 
@@ -39,12 +40,9 @@ public class WebPage {
     }
 
     public String putInFrame() {
-        return "<button class=\"collapsible\">" + name + "</button>\n" +
-                "<div class=\"content\">" +
-                "<iframe src=\"" + urlString + "\" width=\"100%\" height=1000 sandbox=\"allow-forms allow-scripts\">\n" +
-                "  <p>Your browser does not support iframes.</p>\n" +
-                "</iframe>" +
-                "</div>";
+        return new ResourceLoader().getIframe()
+                .replace("NAME", name)
+                .replace("LINK", urlString);
     }
 
     @Override

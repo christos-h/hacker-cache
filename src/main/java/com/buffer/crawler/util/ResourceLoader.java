@@ -1,12 +1,20 @@
-package com.buffer.crawler;
+package com.buffer.crawler.util;
 
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
 
-class Template {
-    String getTemplate() {
-        try (BufferedReader br = getBrFromResource("main.html")) {
+public class ResourceLoader {
+    public String getTemplate() {
+        return getTextFile("main.html");
+    }
+
+    public String getIframe() {
+        return getTextFile("iframe.html");
+    }
+
+    private String getTextFile(String fileName) {
+        try (BufferedReader br = getBrFromResource(fileName)) {
             String line;
             StringBuilder template = new StringBuilder();
             while ((line = br.readLine()) != null) {

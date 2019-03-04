@@ -16,13 +16,18 @@ public class BufferController {
         this.bufferService = bufferService;
     }
 
+    @RequestMapping(value = "/")
+    public String index() {
+        return topic("tech");
+    }
+
     @RequestMapping(value = "/{topic}")
-    public String index(@PathVariable String topic){
+    public String topic(@PathVariable String topic) {
         return bufferService.getContent(topic, 25);
     }
 
     @RequestMapping(value = "{topic}/pages")
-    public String pages(@PathVariable String topic, @RequestParam("n") int n){
+    public String pages(@PathVariable String topic, @RequestParam("n") int n) {
         return bufferService.getContent(topic, n);
     }
 

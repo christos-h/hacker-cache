@@ -4,6 +4,7 @@ import com.buffer.crawler.pages.NewsPage;
 import com.buffer.crawler.pages.HackerNews;
 import com.buffer.crawler.pages.Nanowerk;
 import com.buffer.crawler.pages.WebPage;
+import com.buffer.crawler.util.ResourceLoader;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class BufferService {
                     .filter(p -> !p.hasSameOriginPolicy())
                     .collect(Collectors.toList());
 
-            pagesHackernews  =HACKER_NEWS.extract(5)
+            pagesHackernews = HACKER_NEWS.extract(5)
                     .parallelStream()
                     .filter(p -> !p.hasSameOriginPolicy())
                     .collect(Collectors.toList());
@@ -50,12 +51,12 @@ public class BufferService {
         }
     }
 
-    private String getContent(List<WebPage> pages, int nPages){
+    private String getContent(List<WebPage> pages, int nPages) {
         String pageString = pages.stream()
                 .limit(nPages)
                 .map(WebPage::putInFrame)
                 .collect(Collectors.joining());
-        return new Template().getTemplate().replace("REPLACE_ME", pageString);
+        return new ResourceLoader().getTemplate().replace("REPLACE_ME", pageString);
     }
 
 

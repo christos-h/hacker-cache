@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class NewsPage {
-    private String baseUrl;
+    private final String baseUrl;
     private boolean isPaginated;
-    private String nextPage;
+    private final String nextPage;
 
     NewsPage(String baseUrl, String nextPage, boolean isPaginated){
         this.baseUrl = baseUrl;
