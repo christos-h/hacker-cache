@@ -1,14 +1,12 @@
 package com.buffer.crawler;
 
-import com.buffer.crawler.pages.NewsPage;
-import com.buffer.crawler.pages.HackerNews;
-import com.buffer.crawler.pages.Nanowerk;
-import com.buffer.crawler.pages.WebPage;
+import com.buffer.crawler.pages.*;
 import com.buffer.crawler.util.ResourceLoader;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +18,12 @@ public class BufferService {
 
     private List<WebPage> pagesNanowerk = new LinkedList<>();
     private List<WebPage> pagesHackernews = new LinkedList<>();
+
+    private List<NewsPage> pages = Arrays.asList(
+            new Nanowerk(),
+            new HackerNews(),
+            new ConstructionEnquirer()
+    );
 
     @Scheduled(initialDelay = 0, fixedDelay = 1000 * 60 * 10)
     public void getPage() {
@@ -33,6 +37,8 @@ public class BufferService {
                     .parallelStream()
                     .filter(p -> !p.hasSameOriginPolicy())
                     .collect(Collectors.toList());
+
+
         } catch (IOException ignored) {
 
         }

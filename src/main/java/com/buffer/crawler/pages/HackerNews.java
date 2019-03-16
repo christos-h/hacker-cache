@@ -13,11 +13,7 @@ public class HackerNews extends NewsPage {
     private static final String nextPage = "news?p=";
 
     public HackerNews(){
-        this(baseURl, nextPage, true);
-    }
-
-    private HackerNews(String baseUrl, String nextPage, boolean isPaginated) {
-        super(baseUrl, nextPage, isPaginated);
+        super(baseURl, nextPage, true);
     }
 
     @Override

@@ -18,6 +18,7 @@ public abstract class NewsPage {
 
     public List<WebPage> extract(int nPages) throws IOException {
         List<WebPage> pages = new LinkedList<>();
+        nPages = isPaginated() ? nPages : 1;
         for (int i = 1; i <= nPages; i++) {
             pages.addAll(extract(this.page(i)));
 
@@ -29,7 +30,7 @@ public abstract class NewsPage {
     }
 
     private String page(int n){
-        if(!isPaginated()) throw new IllegalStateException("Cannot get page on non-paginated ExtractableURL");
+        if(!isPaginated()) return baseUrl;
         return baseUrl + nextPage + n;
     }
 
