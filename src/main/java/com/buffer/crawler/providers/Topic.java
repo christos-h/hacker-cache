@@ -1,4 +1,4 @@
-package com.buffer.crawler.pages;
+package com.buffer.crawler.providers;
 
 public enum Topic {
     TECH,

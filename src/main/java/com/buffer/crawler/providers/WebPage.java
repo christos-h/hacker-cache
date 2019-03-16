@@ -1,4 +1,4 @@
-package com.buffer.crawler.pages;
+package com.buffer.crawler.providers;
 
 import com.buffer.crawler.util.ResourceLoader;
 import org.apache.logging.log4j.util.Strings;

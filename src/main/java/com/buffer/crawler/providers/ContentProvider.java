@@ -1,16 +1,16 @@
-package com.buffer.crawler.pages;
+package com.buffer.crawler.providers;
 
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class NewsPage {
+public abstract class ContentProvider {
     private final String baseUrl;
     private boolean isPaginated;
     private final String nextPage;
 
-    NewsPage(String baseUrl, String nextPage, boolean isPaginated){
+    ContentProvider(String baseUrl, String nextPage, boolean isPaginated){
         this.baseUrl = baseUrl;
         this.nextPage = nextPage;
         this.isPaginated = isPaginated;

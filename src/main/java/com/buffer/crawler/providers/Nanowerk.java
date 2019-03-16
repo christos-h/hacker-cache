@@ -1,4 +1,4 @@
-package com.buffer.crawler.pages;
+package com.buffer.crawler.providers;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,14 +8,18 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ConstructionEnquirer extends NewsPage {
+public class Nanowerk extends ContentProvider {
     private static final String MOZILLA_USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0";
 
-    private static final String baseURl = "https://news.ycombinator.com/";
-    private static final String nextPage = "news?p=";
+    private static final String baseURl = "https://www.nanowerk.com/category-spotlight.php";
+    private static final String nextPage = "?page=";
 
-    public ConstructionEnquirer() {
-        super(baseURl, nextPage, false);
+    public Nanowerk() {
+        this(baseURl, nextPage, true);
+    }
+
+    private Nanowerk(String baseUrl, String nextPage, boolean isPaginated) {
+        super(baseUrl, nextPage, isPaginated);
     }
 
     @Override
@@ -25,21 +29,23 @@ public class ConstructionEnquirer extends NewsPage {
                 .userAgent(MOZILLA_USER_AGENT)
                 .get();
 
-        Elements links = doc.select("news-list-article");
+        Elements links = doc.select("article");
 
         return links.stream()
                 .map(e -> {
 
-                    String title = e.select("h3").select("a").html();
-                    String link = e.select("h3").select("a").attr("href");
+                    String title = e.select("h2").select("a").html();
+                    String link = e.select("h2").select("a").attr("href");
 
                     return new WebPage(title, link);
-                }).distinct()
+                })
+                .distinct()
                 .collect(Collectors.toList());
     }
 
     @Override
     Topic topic() {
-        return Topic.CONSTRUCTION;
+        return Topic.NANOTECH;
     }
+
 }

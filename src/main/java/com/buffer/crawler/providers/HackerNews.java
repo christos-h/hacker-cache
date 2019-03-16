@@ -1,4 +1,4 @@
-package com.buffer.crawler.pages;
+package com.buffer.crawler.providers;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HackerNews extends NewsPage {
+public class HackerNews extends ContentProvider {
     private static final String baseURl = "https://news.ycombinator.com/";
     private static final String nextPage = "news?p=";
 
