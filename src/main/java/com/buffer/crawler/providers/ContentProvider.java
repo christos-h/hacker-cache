@@ -40,5 +40,5 @@ public abstract class ContentProvider {
 
     abstract List<WebPage> extract(String baseUrl) throws IOException;
 
-    abstract Topic topic();
+    public abstract Topic topic();
 }

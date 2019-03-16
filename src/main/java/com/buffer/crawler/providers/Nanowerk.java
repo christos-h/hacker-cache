@@ -44,7 +44,7 @@ public class Nanowerk extends ContentProvider {
     }
 
     @Override
-    Topic topic() {
+    public Topic topic() {
         return Topic.NANOTECH;
     }
 

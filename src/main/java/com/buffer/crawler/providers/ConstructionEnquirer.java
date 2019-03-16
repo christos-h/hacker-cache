@@ -11,11 +11,10 @@ import java.util.stream.Collectors;
 public class ConstructionEnquirer extends ContentProvider {
     private static final String MOZILLA_USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0";
 
-    private static final String baseURl = "https://news.ycombinator.com/";
-    private static final String nextPage = "news?p=";
+    private static final String baseURl = "https://www.constructionenquirer.com/";
 
     public ConstructionEnquirer() {
-        super(baseURl, nextPage, false);
+        super(baseURl, null, false);
     }
 
     @Override
@@ -25,7 +24,7 @@ public class ConstructionEnquirer extends ContentProvider {
                 .userAgent(MOZILLA_USER_AGENT)
                 .get();
 
-        Elements links = doc.select("news-list-article");
+        Elements links = doc.getElementsByClass("news-list-article");
 
         return links.stream()
                 .map(e -> {
@@ -39,7 +38,7 @@ public class ConstructionEnquirer extends ContentProvider {
     }
 
     @Override
-    Topic topic() {
+    public Topic topic() {
         return Topic.CONSTRUCTION;
     }
 }

@@ -9,34 +9,32 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Service
 public class BufferService {
-    private static final ContentProvider NANOWERK = new Nanowerk();
-    private static final ContentProvider HACKER_NEWS = new HackerNews();
 
-    private List<WebPage> pagesNanowerk = new LinkedList<>();
-    private List<WebPage> pagesHackernews = new LinkedList<>();
-
-    private List<ContentProvider> pages = Arrays.asList(
+    private List<ContentProvider> providers = Arrays.asList(
             new Nanowerk(),
             new HackerNews(),
             new ConstructionEnquirer()
     );
 
-    @Scheduled(initialDelay = 0, fixedDelay = 1000 * 60 * 10)
-    public void getPage() {
-        try {
-            pagesNanowerk = NANOWERK.extract(5)
-                    .parallelStream()
-                    .filter(p -> !p.hasSameOriginPolicy())
-                    .collect(Collectors.toList());
+    private Map<Topic, List<WebPage>> topicMap = new ConcurrentHashMap<>();
 
-            pagesHackernews = HACKER_NEWS.extract(5)
-                    .parallelStream()
-                    .filter(p -> !p.hasSameOriginPolicy())
-                    .collect(Collectors.toList());
+    @Scheduled(initialDelay = 0, fixedDelay = 1000 * 60 * 10)
+    public synchronized void getPage() {
+        try {
+            for (ContentProvider provider : providers) {
+                List<WebPage> pages = provider.extract(5)
+                        .parallelStream()
+                        .filter(p -> !p.hasSameOriginPolicy())
+                        .collect(Collectors.toList());
+
+                topicMap.put(provider.topic(), pages);
+            }
 
 
         } catch (IOException ignored) {
@@ -45,15 +43,12 @@ public class BufferService {
     }
 
     public String getContent(String topic, int nPages) {
-        switch (topic) {
-            case "tech":
-                if (pagesHackernews.isEmpty()) return "Loading content. Please refresh in ~1 minute.";
-                return getContent(pagesHackernews, nPages);
-            case "nanotech":
-                if (pagesNanowerk.isEmpty()) return "Loading content. Please refresh in ~1 minute.";
-                return getContent(pagesNanowerk, nPages);
-            default:
-                return "No such topic";
+        try {
+            List<WebPage> pages = topicMap.get(Topic.valueOf(topic.toUpperCase()));
+            if (pages == null || pages.isEmpty()) return "Loading... Please try again in ~1 minute";
+            return getContent(pages, nPages);
+        } catch (IllegalArgumentException iae) {
+            return "No such topic...";
         }
     }
 

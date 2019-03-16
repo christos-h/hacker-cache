@@ -27,7 +27,7 @@ public class HackerNews extends ContentProvider {
     }
 
     @Override
-    Topic topic() {
+    public Topic topic() {
         return Topic.TECH;
     }
 
