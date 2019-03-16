@@ -4,8 +4,7 @@ Every morning I open up my favourite news source to read about tech and the like
 
 So this repo is a service (written in Java 8 Spring Boot sue me) which pulls the links for the articles on the top of hackernews and puts them into iframes which are then concatenated onto a single web-page which can be loaded in one go (albeit slowly).
 
-It works reasonably well. This should probably be an app. But this was made in 3 hours, so screw that.
+It works reasonably well. It should probably be a full mobile application, but I don't know any swift.
 
-I hope you find this useful.
 
-[Try it here](http://www.hacker-cache.com/pages?n=20)
+[Try it here](http://www.hacker-cache.com/)
