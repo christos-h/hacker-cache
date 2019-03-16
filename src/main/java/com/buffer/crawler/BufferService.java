@@ -19,7 +19,8 @@ public class BufferService {
     private List<ContentProvider> providers = Arrays.asList(
             new Nanowerk(),
             new HackerNews(),
-            new ConstructionEnquirer()
+            new ConstructionEnquirer(),
+            new EuropeRealEstate()
     );
 
     private Map<Topic, List<WebPage>> topicMap = new ConcurrentHashMap<>();
@@ -28,6 +29,7 @@ public class BufferService {
     public synchronized void getPage() {
         try {
             for (ContentProvider provider : providers) {
+                // todo Each provider should have it's own default number of pages to extract
                 List<WebPage> pages = provider.extract(5)
                         .parallelStream()
                         .filter(p -> !p.hasSameOriginPolicy())
